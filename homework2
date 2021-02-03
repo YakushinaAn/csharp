@@ -1,0 +1,178 @@
+#region Автор
+//Якушина Анна
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Задача 1
+            ////Написать метод, возвращающий минимальное из трех чисел.
+            #endregion
+            Console.WriteLine("Найдем наименьшее число. Введите первое чило:");
+            var first = Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("Введите второе чило:");
+            var second = Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("Введите третье чило:");
+            var third = Convert.ToInt16(Console.ReadLine());
+
+            if (first <= second && first <= third)
+
+                Console.WriteLine($"наименьшее число: {first}");
+
+            else if (second < third)
+
+                Console.WriteLine($"наименьшее число: {second}");
+
+            else
+
+                Console.WriteLine($"наименьшее число: {third}");
+
+            #region Задача 2
+            //Написать метод подсчета количества цифр числа.
+            #endregion
+
+            Console.WriteLine("Найдем количество цифр числа. Введите чило:");
+            int n = int.Parse(Console.ReadLine()), count = 0;
+
+            while (n != 0)
+            {
+                n /= 10;
+                count++;
+            }
+            Console.WriteLine($"кол-во цифр: {count}");
+
+            #region Задача 3
+            //С клавиатуры вводятся числа, пока не будет введен 0. Подсчитать сумму всех нечетных положительных чисел.
+            #endregion
+
+            int t, sum = 0;
+            do
+            {
+                Console.WriteLine("Введите числа:");
+                t = int.Parse(Console.ReadLine());
+                if (t % 2 != 0 && t > 0)
+                {
+                    sum = sum + t;
+                }
+            }
+            while (t != 0);
+
+            Console.WriteLine($"сумма нечетных: {sum}");
+
+            #region Задача 4
+            //Реализовать метод проверки логина и пароля. На вход подается логин и пароль. На выходе истина, если прошел авторизацию, и ложь, если не прошел (Логин: root, Password: GeekBrains). 
+            //Используя метод проверки логина и пароля, написать программу: пользователь вводит логин и пароль, программа пропускает его дальше или не пропускает. С помощью цикла do while ограничить ввод пароля тремя попытками.
+            #endregion
+
+            string login, pass;
+            int x = 0;
+            do
+            {
+                Console.WriteLine("Введите логин:");
+                login = Console.ReadLine();
+                Console.WriteLine("Введите пароль:");
+                pass = Console.ReadLine();
+                x++;
+                if (login == "root" && pass == "GeekBrains")
+                {
+                    Console.WriteLine("Успех!");
+                    Environment.Exit(0);
+                }
+                else
+                    Console.WriteLine("Доступ запрещен");
+
+            }
+            while (x < 3);
+
+            #region Задача 5
+            ////а) Написать программу, которая запрашивает массу и рост человека, вычисляет его индекс массы и сообщает, нужно ли человеку похудеть, набрать вес или все в норме;
+
+            #endregion
+            //Console.WriteLine("рассчет индекса массы тела!");
+
+            Console.WriteLine("введите ваш рост в метрах:");
+            var h = double.Parse(Console.ReadLine());
+
+            Console.WriteLine("введите ваш вес в киллограмах:");
+            var m = double.Parse(Console.ReadLine());
+
+            var imp = m / (h * h);
+            var res = Math.Round(imp, 2);
+
+
+            if (res <= 16)
+            {
+                Console.WriteLine("Выраженный дефицит массы тела!");
+
+            }
+            else if (res > 16 && res < 18)
+            {
+                Console.WriteLine("Недостаточная масса тела");
+
+            }
+
+            else if (res > 18 && res < 25)
+            {
+                Console.WriteLine("Норма");
+
+            }
+
+            else if (res > 25 && res < 30)
+            {
+                Console.WriteLine("Избыточная масса тела (предожирение)");
+
+            }
+            else if (res > 30 && res < 35)
+            {
+                Console.WriteLine("Ожирение");
+
+            }
+            else
+            {
+                Console.WriteLine("Ожирение резкое.");
+
+            }
+
+
+            #region Задача 7
+            //a) Разработать рекурсивный метод, который выводит на экран числа от a до b (a<b);
+            #endregion
+
+            Console.WriteLine("введите первое число");
+            var x = int.Parse(Console.ReadLine());
+            Console.WriteLine("введите второе число");
+            var y = int.Parse(Console.ReadLine());
+            int r = 0;
+            Loop(x, y, r);
+            
+            Console.ReadLine();
+
+        }
+        static void Loop(int x, int y, int r)
+        {
+            do
+            {
+                Console.WriteLine(x);
+                r = r + x;
+                x++;
+                
+                if (x > y)
+                {
+                    Console.WriteLine($"сумма: {r}");
+                }
+            }
+            while (x <= y);
+            
+        }
+
+    }
+    }
