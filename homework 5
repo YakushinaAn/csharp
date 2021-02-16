@@ -1,0 +1,163 @@
+#region Автор
+//Якушина Анна
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
+
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Задача 1
+            //Создать программу, которая будет проверять корректность ввода логина. Корректным логином будет строка от 2 до 10 символов, содержащая только буквы латинского алфавита или цифры, при этом цифра не может быть первой:
+            //а) без использования регулярных выражений;
+            //б) с использованием регулярных выражений.
+            #endregion
+
+            Console.WriteLine("Введите логин:");
+            var a = Console.ReadLine();
+
+            LoginCheck(a); // а
+            LoginReg(a); // б
+
+            #region Задача 2
+            //Разработать класс Message, содержащий следующие статические методы для обработки текста:
+            //а) Вывести только те слова сообщения, которые содержат не более n букв.
+            //б) Удалить из сообщения все слова, которые заканчиваются на заданный символ.
+            //в) Найти самое длинное слово сообщения.
+            //г) Сформировать строку с помощью StringBuilder из самых длинных слов сообщения.
+            //Продемонстрируйте работу программы на текстовом файле с вашей программой.
+            #endregion
+
+            Console.WriteLine("\nЗадание 2");
+
+            var path = ("C:\\Users\\Admin\\Desktop\\ex.txt");
+            Message.Transform (path);
+
+            #region Задача 3
+            //Для двух строк написать метод, определяющий, является ли одна строка перестановкой другой. Регистр можно не учитывать:
+            #endregion
+
+            Console.WriteLine("'\nЗадание 3");
+
+            var s1 = "badc";
+            var s2 = "abcd";
+
+            if (s1.Select(Char.ToUpper).OrderBy(x => x).SequenceEqual(s2.Select(Char.ToUpper).OrderBy(x => x)))
+                Console.WriteLine("Совпадение");
+            else
+            Console.WriteLine("Нет совпадения");
+            Console.ReadKey();
+        }
+        public static void LoginCheck(string a)
+        {
+            var i = a.Length;
+            if (i <= 2 || i >= 10)
+                Console.WriteLine("ошибка: неверное количество символов");
+
+            else if (Char.IsDigit(a[0]))
+                Console.WriteLine("ошибка: цифра не может быть первым элементом");
+
+            //else if (a.StartsWith("1") || a.StartsWith("2") || a.StartsWith("3") || a.StartsWith("4") || a.StartsWith("5") || a.StartsWith("6") || a.StartsWith("7") || a.StartsWith("8") || a.StartsWith("9"))
+            ////- более длинный вариант
+            //    Console.WriteLine("ошибка: цифра не может быть первым элементом");
+            
+            else
+                for (int h = 0; h < a.Length; h++)
+                if (!(Char.IsDigit(a[h]) || a[h] >= 'a' && a[h] <= 'z' || a[h] >= 'A' && a[h] <= 'Z'))
+                Console.WriteLine("ошибка:неподходящий символ");
+        }
+
+        public static void LoginReg(string a)
+        {
+            Regex NewReg = new Regex(@"^[a-zA-Z][a-zA-Z0-9-_\.]{1,10}$");
+
+            if (NewReg.IsMatch(a))
+                Console.WriteLine("успех");
+            else
+            Console.WriteLine("ошибка: неверные символы, длинна логина или начинается с цифры");
+        }
+
+    class Message
+        {
+
+            public static void Transform(string path)
+            {
+                Array[] Text = new Array[30];
+                StreamReader streamReader = new StreamReader(path);
+                var count = File.ReadAllLines(path).Length;
+
+                for (var i = 0; i < count; i++)
+                {
+                    var t = streamReader.ReadLine();
+                    var words = t.Split(' ', ',', '.', '-', '!', '?');
+                    Regex R = new Regex(@"[о]$");
+
+                    //в) Найти самое длинное слово сообщения.
+                    int maxlen = 0, index = 0;
+                    for (int q = 0; q < words.Length; q++)
+                    {
+                        if (words[q].Length > maxlen)
+                        {
+                            maxlen = words[q].Length;
+                            index = q;
+                        }
+
+                    }
+                    Console.Write("\nСамое длинное слово: {0} ", words[index]);
+
+                    //г) Сформировать строку с помощью StringBuilder из самых длинных слов сообщения.
+
+                    StringBuilder z = new StringBuilder("\nСамые длинные слова:");
+
+                    z
+                        .Append(words[index])
+                        .Append(" ")
+                        .Append(words[index])
+                        .Append(" ")
+                        .Append(words[index])
+                        .Append(".");
+
+                    Console.Write(z.ToString());
+
+                    foreach (string word in words)
+                    {
+
+                        //Удалить из сообщения все слова, которые заканчиваются на заданный символ.вариант 1
+                        var n = "о";
+                        if (word.EndsWith(n.ToString()))
+                        {
+                            t = t.Replace(word, string.Empty);
+                            Console.WriteLine(t);
+                        }
+
+                        //Удалить из сообщения все слова, которые заканчиваются на заданный символ.вариант 2
+                        if (R.IsMatch(word))
+                        {
+                            t = t.Replace(word, string.Empty);
+                            Console.WriteLine(t);
+                        }
+
+                        //Вывести только те слова сообщения, которые содержат не более n букв.
+                        if (word.Length < 10)  
+                            Console.WriteLine(word);
+                        
+                    }
+
+                }
+                streamReader.Close();
+            }
+        }
+    }
+}
+
+
