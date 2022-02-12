@@ -1,0 +1,172 @@
+#region Автор
+//Якушина Анна
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            #region Задача 1
+            ////Дан целочисленный массив из 20 элементов. Элементы массива могут принимать целые значения от –10 000 до 10 000 включительно. 
+            ///Написать программу, позволяющую найти и вывести количество пар элементов массива, в которых хотя бы одно число делится на 3. 
+            ///В данной задаче под парой подразумевается два подряд идущих элемента массива. Например, для массива из пяти элементов: 6; 2; 9; –3; 6 – ответ: 4.
+            #endregion
+
+            MyArray a = new MyArray(20, -10000, 10000);
+            Console.WriteLine(a.ToString());
+            Console.WriteLine(a.Count);
+
+            #region Задача 2
+            ////б)Добавить конструктор и методы, которые загружают данные из файла и записывают данные в файл.
+            #endregion
+
+            Text One;
+            One.adress = ("C:\\Users\\Desktop\\");
+            One.file = ("test.txt");
+            //One.Read();
+            //One.Write();
+
+            #region Задача 3
+            ////Решить задачу с логинами из предыдущего урока, только логины и пароли считать из файла в массив. Создайте структуру Account, содержащую Login и Password. (Логин: root, Password: GeekBrains).
+            #endregion
+
+            Account Get;
+            Get.adress = ("C:\\Users\\Desktop\\");
+            Get.file = ("access.txt");
+            Get.Read();
+            Console.ReadKey();
+        }
+        public static void Print(int i, List<string> array)
+        {
+            Console.WriteLine(array[i] + " ");
+        }
+
+    class MyArray
+    {
+        int[] a;
+
+        public MyArray(int n, int min, int max)
+        {
+            a = new int[n];
+            Random rnd = new Random();
+            for (int i = 0; i < n; i++)
+                a[i] = rnd.Next(min, max);
+
+        }
+        public int Plus
+        {
+            get
+            {
+                int sum = 0;
+                for (int i = 0; i < a.Length - 1; i++){
+                foreach (int num in a) 
+                sum += num;
+                }
+                return sum;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                int c = 0;
+                for (int i = 0; i < a.Length-1; i++) {
+                int one = a[i];
+                int two = a[i + 1];
+                if (one % 3 != 0 || two % 3 != 0)
+                    c++;
+                }
+                return c;
+            }
+        }
+        public override string ToString()
+        {
+            string s = "";
+            foreach (int v in a)
+                s = s + v + " ";
+            return s;
+        }
+      
+    }
+    struct Text
+    {
+        public string adress;
+        public string file;
+
+        public void Read() 
+        {
+            Console.WriteLine("Чтение...");
+            StreamReader stReader = new StreamReader(adress+file);
+            List<string> Access = new List<string>();
+
+            while (!stReader.EndOfStream)
+            {
+                string s = stReader.ReadLine();
+                Access.Add(s);
+                Console.WriteLine(Access[Access.Count - 1]);
+            }
+            string[] massiv = Access.ToArray<string>();
+            stReader.Close();
+
+        }
+        public void Write()
+        {
+            Console.WriteLine("Запись...");
+            StreamWriter stWriter = new StreamWriter(adress + file);
+            List<string> Access = new List<string>();
+            stWriter.WriteLine(Console.ReadLine());
+            stWriter.Close();
+        }
+    }
+    struct Account
+    {
+            public string adress;
+            public string file;
+
+            public void Read()
+            {
+                
+                
+                Console.WriteLine("Чтение файла...");
+                StreamReader stReader = new StreamReader(adress + file);
+                List<string> Access = new List<string>();
+
+                while (!stReader.EndOfStream)
+                {
+                    string s = stReader.ReadLine();
+                    Access.Add(s);
+                    Console.WriteLine(Access[Access.Count - 1]);
+                }
+               
+                stReader.Close();
+                    int i = 0;
+                    
+                    if (Access[i] == "root, GeekBrains")
+                    {
+                        Console.WriteLine("Успех!");
+                        Environment.Exit(0);
+                        
+                    }
+                    else
+                        Console.WriteLine("Доступ запрещен");
+                }
+                
+
+            }
+        
+
+        }
+
+    }
+
