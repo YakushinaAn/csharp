@@ -1,0 +1,81 @@
+#region Автор
+//Якушина Анна
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+
+
+#region Задание 1
+//Добавить в программу «Удвоитель» подсчет количества отданных команд.
+//Добавить меню и команду «Играть». При нажатии появляется сообщение, какое число должен получить игрок. Игрок должен постараться получить это число за минимальное количество ходов.
+#endregion
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+
+            button1.Text = "+1";
+            button2.Text = "*2";
+            button3.Text = "Reset";
+            label1.Text = " ";
+            label2.Text = "0";
+            label3.Text = "0";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label2.Text = (Convert.ToInt32(label2.Text) + 1).ToString();
+            label3.Text = (Convert.ToInt32(label3.Text) + 1).ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label2.Text = (Convert.ToInt32(label2.Text) * 2).ToString();
+            label3.Text = (Convert.ToInt32(label3.Text) + 1).ToString();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            label2.Text = "0";
+            label3.Text = "0";
+        }
+
+
+        private void игратьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Программа «Удвоитель». Вам нужно получить число 10.";
+        }
+    }
+}
+
+// Program.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    static class Program
+    {
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
+}
